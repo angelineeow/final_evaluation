@@ -98,7 +98,6 @@ const View = (() => {
         let completedTemplate = "";
 
         todos
-            .sort((a, b) => b.id - a.id) // sorting
             .forEach((todo) => {
                 
                 if(todo.completed){
@@ -108,7 +107,7 @@ const View = (() => {
                                            </li>`
                 } else {
                     pendingTemplate += `<li>     
-                                            ${todo.isEdit ? `<input type="text" id="${todo.id}" placeholder="${todo.title}" value="${todo.title}"/>` : `<span class="span-title--pending" id="${todo.id}">${todo.title}</span>`}
+                                            ${todo.isEdit ? `<input type="text" class="input-text" id="${todo.id}" value="${todo.title}">` : `<span class="span-title--pending" id="${todo.id}">${todo.title}</span>`}
                                             <button class="btn--editing" id="${todo.id}">edit</button>
                                             <button class="btn--delete" id="${todo.id}">delete</button>
                                         </li>`;
@@ -179,16 +178,27 @@ const ViewModel = ((View, Model) => {
     const editTodo = () => {
         View.pending_todoListEl.addEventListener("click", (event)=>{
             const id = event.target.id;
+            const inputText = View.pending_todoListEl.querySelector(`input[id]`);
             if(event.target.className === "btn--editing"){
                 state.todos = state.todos.map((todo) => {
                     if(+todo.id === +id) {
-                        Model.editTodo(+todo.id, todo.title, !todo.isEdit, todo.completed)
+                        if(todo.isEdit){
+                            // pressing the edit button to PATCH THE EDIT
+                            todo.title = inputText.value;
+                            Model.editTodo(+todo.id, todo.title, !todo.isEdit, todo.completed)
+                            todo.isEdit = !todo.isEdit;
+                        } else {
+                            // pressing the edit button to EDIT
+                            Model.editTodo(+todo.id, todo.title, !todo.isEdit, todo.completed)
+                            todo.isEdit = !todo.isEdit;
+                        }
                     }
                     return todo;
                 })
             }
         })
     };
+
 
     // complete status of the todo
     const completeTodo = () => {
@@ -218,7 +228,6 @@ const ViewModel = ((View, Model) => {
             }
         })
     };
-
 
     const bootstrap = () => {
         getTodos();

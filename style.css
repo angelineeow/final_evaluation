@@ -51,14 +51,21 @@ header{
 }
 
 .span-title--complete {
-    text-decoration:line-through
+    text-decoration: line-through;
+    cursor: pointer;
 }
+
+.span-title--pending {
+    cursor: pointer;
+}
+
 
 ul li svg {
     width: 18px;
     height: 18px;
     padding: 3px;
     fill: white;
+    list-style: none;
 }
 
 svg {
