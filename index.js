@@ -79,10 +79,10 @@ const Model = (() => {
 
     return {
         State,
-        getTodos,
         addTodo,
         removeTodo,
-        editTodo
+        editTodo,
+        getTodos
     };
 })();
 
@@ -92,7 +92,6 @@ const View = (() => {
     const completed_todoListEl = document.querySelector("#todo__list--completed");
     const pending_todoListEl = document.querySelector("#todo__list--pending");
     const none_todoListEl = document.querySelector("#todo__list--none");
-    const editInput = document.querySelector(".input-title");
 
     const updateTodoList = (todos) => {
         let pendingTemplate = "";
@@ -101,20 +100,21 @@ const View = (() => {
         todos
             .sort((a, b) => b.id - a.id) // sorting
             .forEach((todo) => {
+                
                 if(todo.completed){
                     completedTemplate +=  `<li>
                                               <span class="span-title--complete" id="${todo.id}">${todo.title}</span>
-                                              <button class="btn--delete" id="${todo.id}">${delete_icon}</button>
-                                           </li>`;
+                                              <button class="btn--delete" id="${todo.id}">delete</button>
+                                           </li>`
                 } else {
-                    pendingTemplate += `<li>
-                                            ${todo.isEdit ? `<input type="text" class="input-title" id="${todo.id}" placeholder="${todo.title}" value="${todo.title}" />` : `<span class="span-title--pending" id="${todo.id}">${todo.title}</span>`}
-                                            ${todo.isEdit ? `<button class="btn--delete" id="${todo.id}">${edit_icon}</button>` : `<button class="btn--notediting" id="${todo.id}">${edit_icon}</button>`}
-                                            <button class="btn--delete" id="${todo.id}">${delete_icon}</button>
+                    pendingTemplate += `<li>     
+                                            ${todo.isEdit ? `<input type="text" id="${todo.id}" placeholder="${todo.title}" value="${todo.title}"/>` : `<span class="span-title--pending" id="${todo.id}">${todo.title}</span>`}
+                                            <button class="btn--editing" id="${todo.id}">edit</button>
+                                            <button class="btn--delete" id="${todo.id}">delete</button>
                                         </li>`;
                 }
             
-            });
+            }); 
 
         none_todoListEl.style.display = pendingTemplate === "" ? "block" : "none";
         completed_todoListEl.innerHTML = completedTemplate;
@@ -125,7 +125,6 @@ const View = (() => {
         formEl,
         completed_todoListEl,
         pending_todoListEl,
-        editInput,
         updateTodoList
     };
 })();
@@ -149,7 +148,7 @@ const ViewModel = ((View, Model) => {
                 alert("please input title!");
                 return;
             }
-            Model.addTodo(title).then((res) => {
+            Model.addTodo({title, isEdit: false, completed: false}).then((res) => {
                     state.todos = [res, ...state.todos];
                     event.target[0].value = ""
                 }).catch((err) => {alert(`add new task failed: ${err}`)});
@@ -180,12 +179,10 @@ const ViewModel = ((View, Model) => {
     const editTodo = () => {
         View.pending_todoListEl.addEventListener("click", (event)=>{
             const id = event.target.id;
-            if(event.target.className === "btn--edit"){
+            if(event.target.className === "btn--editing"){
                 state.todos = state.todos.map((todo) => {
                     if(+todo.id === +id) {
-                        newTitle = View.editInput.value;
-                        Model.editTodo(+todo.id, newTitle, !todo.isEdit, todo.completed);
-                        todo.isEdit = !todo.isEdit;
+                        Model.editTodo(+todo.id, todo.title, !todo.isEdit, todo.completed)
                     }
                     return todo;
                 })
@@ -198,6 +195,19 @@ const ViewModel = ((View, Model) => {
         View.pending_todoListEl.addEventListener("click", (event)=>{
             const id = event.target.id;
             if(event.target.className === "span-title--pending"){
+                state.todos = state.todos.map((todo) => {
+                    if(+todo.id === +id) {
+                        Model.editTodo(+todo.id, todo.title, todo.isEdit, !todo.completed);
+                        todo.completed = !todo.completed;
+                    }
+                    return todo;
+                })
+            }
+        })
+
+        View.completed_todoListEl.addEventListener("click", (event)=>{
+            const id = event.target.id;
+            if(event.target.className === "span-title--complete"){
                 state.todos = state.todos.map((todo) => {
                     if(+todo.id === +id) {
                         Model.editTodo(+todo.id, todo.title, todo.isEdit, !todo.completed);
