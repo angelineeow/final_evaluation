@@ -18,11 +18,20 @@ header{
 
 }
 
-input {
+form input {
     height: 30px;
     font-size: medium;
     display: flex;
     padding-left: 10px;
+    justify-content: center;
+    border: 1px lightgray;
+    border-style: solid;
+    border-radius: 5px;
+}
+
+input {
+    height: 30px;
+    font-size: medium;
     justify-content: center;
     border: 1px lightgray;
     border-style: solid;
