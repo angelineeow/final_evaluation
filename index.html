@@ -9,16 +9,20 @@
 </head>
 <body>
     <div class="todo__container">
-        <header><h1>Todo List</h1></header>
+        <header><h1>To Do List</h1></header>
         <form class="form">
             <input/>
             <button>submit</button>
         </form>
-        <div class="todo-listgroup">
-            <div>
-                <ul class="todo-list"></ul>
-            </div>
-        </div>
+        <main class="todo__list--container">
+            <section class="todo__list--pendingContainer">
+                <p id="todo__list--none">no active task</p>
+                <ul id="todo__list--pending"></ul>
+            </section>
+            <section class="todo__list--completedContainer">
+                <ul id="todo__list--completed"></ul>
+            </section>
+        </main>
     </div>
     <script src="index.js"></script>
 </body>

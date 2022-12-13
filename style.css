@@ -1,3 +1,12 @@
+:root {
+    --color-tan: #e6e2d3;
+    --color-traffic-white:#f0f0f0;
+    --color-vermillion-red:#c94c4c;
+    --color-blue: #008cba;
+    --box-border-radius: 3px;
+    
+}
+
 html{
     display: flex;
     align-items: center;
@@ -22,16 +31,14 @@ header{
     gap:10px;
     flex-direction: row;
 }
-.todo-list{
+.todo__list--container{
     display: flex;
     list-style-type: none;
     padding:10px;
     flex-direction: column;
-    gap:10px;
     border: 1px black solid;
     border-radius: 5px;
     align-items: stretch;
-    min-height: 250px;
 }
 
 .todo-list li{
@@ -41,4 +48,19 @@ header{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.span-title--complete {
+    text-decoration:line-through
+}
+
+ul li svg {
+    width: 18px;
+    height: 18px;
+    padding: 3px;
+    fill: white;
+}
+
+svg {
+    pointer-events: none;
 }
