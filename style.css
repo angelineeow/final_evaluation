@@ -1,73 +1,136 @@
-:root {
-    --color-tan: #e6e2d3;
-    --color-traffic-white:#f0f0f0;
-    --color-vermillion-red:#c94c4c;
-    --color-blue: #008cba;
-    --box-border-radius: 3px;
-    
-}
-
 html{
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 0;
+    padding: 0;
 }
 
 header{
     text-align: center;
 }
 
+.form{
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
+input {
+    height: 30px;
+    font-size: medium;
+    display: flex;
+    padding-left: 10px;
+    justify-content: center;
+    border: 1px lightgray;
+    border-style: solid;
+    border-radius: 5px;
+}
+
+.todo__list--none {
+    text-align: center;
+}
+
+#todo__list--completed{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0px;
+    width: 100%;
+}
+
+#todo__list--pending {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0px;
+    width: 100%;
+}
+
 .todo__container{
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap:20px;
-    width: fit-content;
-
+    gap: 18px;
+    width: 400px;
 }
 
-.form{
-    display: flex;
-    gap:10px;
-    flex-direction: row;
-}
 .todo__list--container{
     display: flex;
     list-style-type: none;
-    padding:10px;
+    padding: 10px;
     flex-direction: column;
-    border: 1px black solid;
+    border: 2px #e6e2d3;
+    border-style: solid;
     border-radius: 5px;
     align-items: stretch;
 }
 
-.todo-list li{
-    border: 1px black solid;
-    border-radius: 5px;
-    padding:10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+.todo__list--completedContainer{
+    width: 100%;
+    align-items: stretch;
+}
+
+.todo__list--pendingContainer{
+    width: 100%;
+    align-items: stretch;
+}
+
+.todo__list--pendingContainer p{
+    text-align: center;
 }
 
 .span-title--complete {
     text-decoration: line-through;
+    color: gray;
     cursor: pointer;
 }
 
 .span-title--pending {
+    margin: 0;
+    padding: 0;
     cursor: pointer;
 }
 
-
-ul li svg {
-    width: 18px;
-    height: 18px;
-    padding: 3px;
-    fill: white;
+ul li {
+    background-color: #e6e2d3;
+    border: none;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    text-align: center;
     list-style: none;
 }
 
-svg {
+ul li svg {
+    width: 25px;
+    height: 25px;
+    padding: 3px;
+    fill: #f0f0f0;
     pointer-events: none;
+    cursor: pointer;
+}
+
+.btn--submit {
+    background-color: #008cba;
+    border: none;
+    border-radius: 5px;
+    color: #f0f0f0;
+    cursor: pointer;
+}
+
+.btn--editing {
+    background-color: #008cba;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn--delete {
+    background-color: #c94c4c;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }

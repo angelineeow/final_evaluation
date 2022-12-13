@@ -103,13 +103,13 @@ const View = (() => {
                 if(todo.completed){
                     completedTemplate +=  `<li>
                                               <span class="span-title--complete" id="${todo.id}">${todo.title}</span>
-                                              <button class="btn--delete" id="${todo.id}">delete</button>
+                                              <button class="btn--delete" id="${todo.id}">${delete_icon}</button>
                                            </li>`
                 } else {
                     pendingTemplate += `<li>     
                                             ${todo.isEdit ? `<input type="text" class="input-text" id="${todo.id}" value="${todo.title}">` : `<span class="span-title--pending" id="${todo.id}">${todo.title}</span>`}
-                                            <button class="btn--editing" id="${todo.id}">edit</button>
-                                            <button class="btn--delete" id="${todo.id}">delete</button>
+                                            <button class="btn--editing" id="${todo.id}">${edit_icon}</button>
+                                            <button class="btn--delete" id="${todo.id}">${delete_icon}</button>
                                         </li>`;
                 }
             
