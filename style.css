@@ -31,11 +31,12 @@ form input {
 
 input {
     height: 30px;
+    padding-left: 10px;
     font-size: medium;
     justify-content: center;
     border: 1px lightgray;
     border-style: solid;
-    border-radius: 5px;
+    border-radius: 8px;
 }
 
 .todo__list--none {
@@ -73,7 +74,7 @@ input {
     flex-direction: column;
     border: 2px #e6e2d3;
     border-style: solid;
-    border-radius: 5px;
+    border-radius: 8px;
     align-items: stretch;
 }
 
@@ -108,14 +109,14 @@ ul li {
     border: none;
     padding: 10px;
     margin: 5px;
-    border-radius: 5px;
+    border-radius:8px;
     text-align: center;
     list-style: none;
 }
 
 ul li svg {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     padding: 3px;
     fill: #f0f0f0;
     pointer-events: none;
@@ -125,6 +126,8 @@ ul li svg {
 .btn--submit {
     background-color: #008cba;
     border: none;
+    width: 80px;
+    height: 30px;
     border-radius: 5px;
     color: #f0f0f0;
     cursor: pointer;
