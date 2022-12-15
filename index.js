@@ -160,7 +160,7 @@ const ViewModel = ((View, Model) => {
 
     const removeTodo = () => {
         View.pending_todoListEl.addEventListener("click",(event)=>{
-            const id = event.target.id;
+            const id = event.target.id; /* target - a reference to the element the event occurred upon */
             if(event.target.className === "btn--delete"){
                 Model.removeTodo(id).then(res=>{
                     state.todos = state.todos.filter(todo => +todo.id !== +id)
