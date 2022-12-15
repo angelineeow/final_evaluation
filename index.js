@@ -148,7 +148,7 @@ const ViewModel = ((View, Model) => {
         View.formEl.addEventListener("submit", (event) => {
             event.preventDefault();
             
-            const title = event.target[0].value;
+            const title = event.target[0].value; /* first child of the form element: input */
             if(title.trim() === "") {
                 alert("please input title!");
                 return;
