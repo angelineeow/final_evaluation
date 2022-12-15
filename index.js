@@ -15,7 +15,7 @@ const APIs = (() => {
     const addTodo = (newTodo) => {
         return fetch(URL, {
             method: "POST",
-            body: JSON.stringify(newTodo), /* Accepts an object as a parameter, and returns the equivalent JSON string */
+            body: JSON.stringify(newTodo), /* accepts a string, but not an object */
             headers: { "Content-Type": "application/json" },
         }).then((res) => res.json());
     };
@@ -50,6 +50,7 @@ const APIs = (() => {
 })();
 
 /* ------------------------------------------- MODEL ------------------------------------------- */
+// hold raw data and define the essential components of your app.
 const Model = (() => {
     class State {
 
@@ -91,6 +92,7 @@ const Model = (() => {
 })();
 
 /* ------------------------------------------- VIEW ------------------------------------------- */
+// made up of the function that directly interact with the user
 const View = (() => {
     const formEl = document.querySelector(".form");
     const completed_todoListEl = document.querySelector("#todo__list--completed");

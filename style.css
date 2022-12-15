@@ -142,7 +142,7 @@ ul li svg {
     height: 20px;
     padding: 3px;
     fill: #f0f0f0;
-    pointer-events: none;
+    pointer-events: none; /* allows for control over how HTML elements respond to mouse/touch events */
     cursor: pointer;
 }
 
