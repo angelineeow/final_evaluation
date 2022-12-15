@@ -60,10 +60,10 @@ input {
 
 #todo__list--pending li {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: row; /* how flex items are placed in the flex container defining the main axis and the direction */
+    justify-content: center; /* how the browser distributes space between and around content items */
     gap: 10px;
-    align-items: center;  /* fixed */
+    align-items: center;  /* fixed the alignment of items */
 }
 
 #todo__list--completed li {

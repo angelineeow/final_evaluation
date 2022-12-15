@@ -11,22 +11,23 @@ const delete_icon = `<svg focusable="false" aria-hidden="true" viewBox="0 0 24 2
 const APIs = (() => {
     const URL = "http://localhost:3000/todos";
 
-    /* create the task with POST*/
+    /* create a task with POST */
     const addTodo = (newTodo) => {
         return fetch(URL, {
             method: "POST",
-            body: JSON.stringify(newTodo),
+            body: JSON.stringify(newTodo), /* Accepts an object as a parameter, and returns the equivalent JSON string */
             headers: { "Content-Type": "application/json" },
         }).then((res) => res.json());
     };
 
+    /* remove a task with DELETE */
     const removeTodo = (id) => {
         return fetch(URL + `/${id}`, {
             method: "DELETE",
         }).then((res) => res.json());
     };
 
-    // Edit the todo task
+    /* edit/update a task with PATCH */
     const editTodo = (id, title, isEdit, completed) => {
         return fetch(URL + `/${id}`, {
             method: "PATCH",
@@ -35,7 +36,7 @@ const APIs = (() => {
         }).then((res) => res.json());
     };
 
-    /* retrieve */
+    /* retrieve the tasks */
     const getTodos = () => {
         return fetch(URL).then((res) => res.json());
     };
@@ -65,6 +66,7 @@ const Model = (() => {
 
         set todos(newTodo) {
             this.#todos = newTodo;
+            /* make sure the View gets updated everytime we make changes on the todo list */
             this.#onChange?.(); /* If undefined or null, ?. returns undefined instead of throwing an error */
         }
 
@@ -176,7 +178,7 @@ const ViewModel = ((View, Model) => {
         })
     };
 
-    // edit the todo
+    /* edit the tasks */
     const editTodo = () => {
         View.pending_todoListEl.addEventListener("click", (event)=>{
             const id = event.target.id;
@@ -185,45 +187,47 @@ const ViewModel = ((View, Model) => {
                 state.todos = state.todos.map((todo) => {
                     if(+todo.id === +id) {
                         if(todo.isEdit){
-                            /* pressing the edit button to PATCH THE EDIT */
+                            /* TRUE - EDITING IN PROGRESS */
                             todo.title = inputText.value;
                             Model.editTodo(+todo.id, todo.title, !todo.isEdit, todo.completed)
-                            todo.isEdit = !todo.isEdit;
+                            todo.isEdit = !todo.isEdit; /* PATCH THE EDIT */
                         } else {
-                            /* pressing the edit button to EDIT */
+                            /* FALSE - NOT EDITING */
                             Model.editTodo(+todo.id, todo.title, !todo.isEdit, todo.completed)
-                            todo.isEdit = !todo.isEdit;
+                            todo.isEdit = !todo.isEdit; /* BEGIN EDITING */
                         }
                     }
-                    return todo; /* reassign the todo Object */
+                    return todo; /* reassign the todo Object to the Model */
                 })
             }
         })
     };
 
 
-    // complete status of the todo
+    /* complete status of the task */
     const completeTodo = () => {
+        /* section: pending tasks where completed: FALSE */
         View.pending_todoListEl.addEventListener("click", (event)=>{ /* an object based on Event describing the event that has occurred */
-            const id = event.target.id;
+            const id = event.target.id; 
             if(event.target.className === "span-title--pending"){
                 state.todos = state.todos.map((todo) => {
                     if(+todo.id === +id) {
                         Model.editTodo(+todo.id, todo.title, todo.isEdit, !todo.completed);
-                        todo.completed = !todo.completed;
+                        todo.completed = !todo.completed; /* completed: TRUE */
                     }
                     return todo;
                 })
             }
         })
 
+        /* section: completed tasks where completed: TRUE */
         View.completed_todoListEl.addEventListener("click", (event)=>{
             const id = event.target.id;
             if(event.target.className === "span-title--complete"){
                 state.todos = state.todos.map((todo) => {
                     if(+todo.id === +id) {
                         Model.editTodo(+todo.id, todo.title, todo.isEdit, !todo.completed);
-                        todo.completed = !todo.completed;
+                        todo.completed = !todo.completed; /* completed: FALSE */
                     }
                     return todo;
                 })
@@ -248,4 +252,4 @@ const ViewModel = ((View, Model) => {
 
 })(View, Model);
 
-ViewModel.bootstrap();
+ViewModel.bootstrap();  /* initialized everything */
