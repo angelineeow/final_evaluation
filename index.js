@@ -159,6 +159,7 @@ const ViewModel = ((View, Model) => {
     };
 
     const removeTodo = () => {
+        //event bubbling: event listener from parent element can receive event emitted from its child
         View.pending_todoListEl.addEventListener("click",(event)=>{
             const id = event.target.id; /* target - a reference to the element the event occurred upon */
             if(event.target.className === "btn--delete"){

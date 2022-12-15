@@ -61,9 +61,9 @@ input {
 #todo__list--pending li {
     display: flex;
     flex-direction: row; /* how flex items are placed in the flex container defining the main axis and the direction */
-    justify-content: center; /* how the browser distributes space between and around content items */
+    justify-content: center; /* how the browser distributes space between and around content items horizontally */
     gap: 10px;
-    align-items: center;  /* fixed the alignment of items */
+    align-items: center;  /* fixed the alignment of items vertically */
 }
 
 #todo__list--completed li {
