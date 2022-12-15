@@ -70,7 +70,7 @@ input {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 10px;
+    gap: 60px;
     align-items: center; /* fixed */
 }
 
