@@ -65,11 +65,11 @@ const Model = (() => {
 
         set todos(newTodo) {
             this.#todos = newTodo;
-            this.#onChange?.(); // If undefined or null, ?. returns undefined instead of throwing an error
+            this.#onChange?.(); /* If undefined or null, ?. returns undefined instead of throwing an error */
         }
 
         subscribe(callback) {
-            this.#onChange = callback; // View.updateTodoList(state.todos)
+            this.#onChange = callback; /* View.updateTodoList(state.todos) */
         }
     }
     let { 
@@ -128,7 +128,7 @@ const View = (() => {
         pending_todoListEl,
         updateTodoList
     };
-})(); // an object
+})(); /* an object */
 
 /* ------------------------------------------- VIEW MODEL ------------------------------------------- */
 const ViewModel = ((View, Model) => {
@@ -245,7 +245,7 @@ const ViewModel = ((View, Model) => {
     return {
         bootstrap,
     };
-    
+
 })(View, Model);
 
 ViewModel.bootstrap();
