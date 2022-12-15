@@ -15,7 +15,7 @@ header{
     gap: 10px;
     flex-direction: row;
     justify-content: center;
-
+    align-items: center;
 }
 
 form input {
@@ -54,11 +54,37 @@ input {
 #todo__list--pending {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
     padding: 0px;
     width: 100%;
 }
 
+#todo__list--pending li {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;  /* fixed */
+}
+
+#todo__list--completed li {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    align-items: center; /* fixed */
+}
+
+#todo__list--pending li span{
+    width: 400px;
+}
+
+#todo__list--pending li input{
+    width: 400px;
+}
+
+#todo__list--completed li span{
+    width: 600px;
+}
 .todo__container{
     display: flex;
     flex-direction: column;
@@ -86,9 +112,6 @@ input {
 .todo__list--pendingContainer{
     width: 100%;
     align-items: stretch;
-}
-
-.todo__list--pendingContainer p{
     text-align: center;
 }
 
@@ -128,6 +151,7 @@ ul li svg {
     border: none;
     width: 80px;
     height: 30px;
+    font-size: medium;
     border-radius: 5px;
     color: #f0f0f0;
     cursor: pointer;

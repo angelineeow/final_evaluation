@@ -7,10 +7,11 @@ const delete_icon = `<svg focusable="false" aria-hidden="true" viewBox="0 0 24 2
                         <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path>
                     </svg>`
 
-// API DATA
+// API- CRUD
 const APIs = (() => {
     const URL = "http://localhost:3000/todos";
 
+    /* create the task with POST*/
     const addTodo = (newTodo) => {
         return fetch(URL, {
             method: "POST",
@@ -34,6 +35,7 @@ const APIs = (() => {
         }).then((res) => res.json());
     };
 
+    /* retrieve */
     const getTodos = () => {
         return fetch(URL).then((res) => res.json());
     };
@@ -63,11 +65,11 @@ const Model = (() => {
 
         set todos(newTodo) {
             this.#todos = newTodo;
-            this.#onChange?.();
+            this.#onChange?.(); // If undefined or null, ?. returns undefined instead of throwing an error
         }
 
         subscribe(callback) {
-            this.#onChange = callback;
+            this.#onChange = callback; // View.updateTodoList(state.todos)
         }
     }
     let { 
@@ -126,7 +128,7 @@ const View = (() => {
         pending_todoListEl,
         updateTodoList
     };
-})();
+})(); // an object
 
 /* ------------------------------------------- VIEW MODEL ------------------------------------------- */
 const ViewModel = ((View, Model) => {
@@ -149,7 +151,7 @@ const ViewModel = ((View, Model) => {
             }
             Model.addTodo({title, isEdit: false, completed: false}).then((res) => {
                     state.todos = [res, ...state.todos];
-                    event.target[0].value = ""
+                    event.target[0].value = "";
                 }).catch((err) => {alert(`add new task failed: ${err}`)});
         });
     };
@@ -183,17 +185,17 @@ const ViewModel = ((View, Model) => {
                 state.todos = state.todos.map((todo) => {
                     if(+todo.id === +id) {
                         if(todo.isEdit){
-                            // pressing the edit button to PATCH THE EDIT
+                            /* pressing the edit button to PATCH THE EDIT */
                             todo.title = inputText.value;
                             Model.editTodo(+todo.id, todo.title, !todo.isEdit, todo.completed)
                             todo.isEdit = !todo.isEdit;
                         } else {
-                            // pressing the edit button to EDIT
+                            /* pressing the edit button to EDIT */
                             Model.editTodo(+todo.id, todo.title, !todo.isEdit, todo.completed)
                             todo.isEdit = !todo.isEdit;
                         }
                     }
-                    return todo;
+                    return todo; /* reassign the todo Object */
                 })
             }
         })
@@ -202,7 +204,7 @@ const ViewModel = ((View, Model) => {
 
     // complete status of the todo
     const completeTodo = () => {
-        View.pending_todoListEl.addEventListener("click", (event)=>{
+        View.pending_todoListEl.addEventListener("click", (event)=>{ /* an object based on Event describing the event that has occurred */
             const id = event.target.id;
             if(event.target.className === "span-title--pending"){
                 state.todos = state.todos.map((todo) => {
@@ -243,6 +245,7 @@ const ViewModel = ((View, Model) => {
     return {
         bootstrap,
     };
+    
 })(View, Model);
 
 ViewModel.bootstrap();
